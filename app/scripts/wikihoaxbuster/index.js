@@ -17,7 +17,24 @@ function hoaxBuster() {
     spinner: true
   });
   whoColor.get(function(err, results) {
+    if(err) {
+      chrome.runtime.sendMessage({
+        type: 'wikihoaxbuster::setSpinner',
+        spinner: false
+      });
+
+      return console.warn(err);
+    }
+
     getUsersInfos(_.chain(results.authors).filter('anon', false).map('name').value(), function(err, authors) {
+      if(err) {
+        chrome.runtime.sendMessage({
+          type: 'wikihoaxbuster::setSpinner',
+          spinner: false
+        });
+
+        return console.warn(err);
+      }
 
       var tokens = tokenScore.compute(results.tokens, {
         revisions: results.revisions,
