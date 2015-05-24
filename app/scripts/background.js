@@ -4,8 +4,13 @@ chrome.runtime.onInstalled.addListener(function (details) {
   console.log('previousVersion', details.previousVersion);
 });
 
-chrome.tabs.onUpdated.addListener(function (tabId) {
-  chrome.pageAction.show(tabId);
+chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+  chrome.declarativeContent.onPageChanged.addRules([{
+    conditions: [
+      new chrome.declarativeContent.PageStateMatcher({
+        pageUrl: { hostEquals: 'en.wikipedia.org' },
+      })
+    ],
+    actions: [ new chrome.declarativeContent.ShowPageAction() ]
+  }]);
 });
-
-console.log('\'Allo \'Allo! Event Page for Page Action');
