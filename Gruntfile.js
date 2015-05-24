@@ -306,6 +306,11 @@ module.exports = function (grunt) {
       dist: {
         files: {
           'app/scripts/pagescript.js': ['app/scripts/wikihoaxbuster/index.js']
+        },
+        options: {
+          browserifyOptions: {
+            debug: true
+          }
         }
       }
     }
