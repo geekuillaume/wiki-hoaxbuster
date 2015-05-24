@@ -1,6 +1,6 @@
 'use strict';
 
-var $ = require('wlt-zepto');
+var $ = require('jquery');
 
 var wikiColorURL = 'https://api.wikicolor.net/whocolor/index.php';
 
