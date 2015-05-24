@@ -40,7 +40,7 @@ module.exports = function (grunt) {
         }
       },
       browserify: {
-        files: ['<%= config.app %>/scripts/wikihoaxbuster/*.js'],
+        files: ['<%= config.app %>/scripts/wikihoaxbuster/*.js', '<%= config.app %>/scripts/background/*.js'],
         tasks: ['browserify'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -305,7 +305,8 @@ module.exports = function (grunt) {
     browserify: {
       dist: {
         files: {
-          'app/scripts/pagescript.js': ['app/scripts/wikihoaxbuster/index.js']
+          'app/scripts/pagescript.js': ['app/scripts/wikihoaxbuster/index.js'],
+          'app/scripts/background.js': ['app/scripts/background/index.js']
         },
         options: {
           browserifyOptions: {
