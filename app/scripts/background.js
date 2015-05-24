@@ -15,12 +15,10 @@ chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
   }]);
 });
 
+console.log('hello');
+
 chrome.pageAction.onClicked.addListener(function(){
   chrome.tabs.executeScript({
-    file: 'bower_components/zepto/zepto.min.js'
-  }, function() {
-    chrome.tabs.executeScript({
-      file: 'scripts/wikihoaxbuster.js'
-    });
+    file: 'scripts/pagescript.js'
   });
 });

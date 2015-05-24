@@ -34,7 +34,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['jshint'],
+        tasks: ['browserify', 'jshint'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -108,7 +108,8 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        force: true
       },
       all: [
         'Gruntfile.js',
@@ -292,12 +293,21 @@ module.exports = function (grunt) {
           dest: ''
         }]
       }
+    },
+
+    browserify: {
+      dist: {
+        files: {
+          'app/scripts/pagescript.js': ['app/scripts/wikihoaxbuster/index.js']
+        }
+      }
     }
   });
 
   grunt.registerTask('debug', function () {
     grunt.task.run([
       'jshint',
+      'browserify',
       'concurrent:chrome',
       'connect:chrome',
       'watch'
@@ -316,6 +326,7 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'cssmin',
     'concat',
+    'browserify',
     'uglify',
     'copy',
     'usemin',
@@ -324,7 +335,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'jshint',
-    'test',
+    // 'test',
     'build'
   ]);
 };
