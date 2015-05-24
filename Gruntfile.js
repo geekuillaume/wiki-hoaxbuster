@@ -33,8 +33,15 @@ module.exports = function (grunt) {
         tasks: ['bowerInstall']
       },
       js: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['browserify', 'jshint'],
+        files: ['<%= config.app %>/scripts/*.js'],
+        tasks: [],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
+      },
+      browserify: {
+        files: ['<%= config.app %>/scripts/wikihoaxbuster/*.js'],
+        tasks: ['browserify'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -334,7 +341,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'jshint',
+    // 'jshint',
     // 'test',
     'build'
   ]);
