@@ -33,7 +33,7 @@ Spinner.prototype.start = function start() {
       context.moveTo(cW / 6, 0);
       context.lineTo(cW / 2, 0);
       context.lineWidth = 1;
-      context.strokeStyle = 'rgba(255, 255, 255, ' + i / lines + ')';
+      context.strokeStyle = 'rgba(150, 150, 150, ' + i / lines + ')';
       context.stroke();
     }
     context.restore();
