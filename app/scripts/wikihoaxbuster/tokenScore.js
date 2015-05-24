@@ -40,5 +40,6 @@ exports.compute = function(tokens, infos) {
   return _.each(tokens, function(token) {
     token.ageScore = getRevisionAgeScore(token, infos);
     token.authorScore = authorScore(token, infos);
+    token.score = (token.ageScore + token.authorScore) / 2;
   });
 };

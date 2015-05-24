@@ -17,8 +17,6 @@ chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
   }]);
 });
 
-console.log('hello');
-
 chrome.pageAction.onClicked.addListener(function(){
   chrome.tabs.executeScript({
     file: 'scripts/pagescript.js'
