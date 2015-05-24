@@ -1,6 +1,8 @@
 {
   "name": "wiki-hoaxbuster",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "zepto": "~1.1.6"
+  },
   "devDependencies": {}
 }
