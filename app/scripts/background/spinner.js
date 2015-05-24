@@ -24,7 +24,6 @@ Spinner.prototype.start = function start() {
     var rotation = parseInt(((new Date() - date) / 1800) * lines) / lines;
     context.save();
     context.clearRect(0, 0, cW, cH);
-    context.drawImage(img, 0, 0, 19, 19);
     context.translate(cW / 2, cH / 2);
     context.rotate(Math.PI * 2 * rotation);
     for (var i = 1; i <= lines; i++) {
@@ -37,6 +36,7 @@ Spinner.prototype.start = function start() {
       context.stroke();
     }
     context.restore();
+    context.drawImage(img, 0, 0, 19, 19);
     return context.getImageData(0, 0, 19, 19);
   };
 

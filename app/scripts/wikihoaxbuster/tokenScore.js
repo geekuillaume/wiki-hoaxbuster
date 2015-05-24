@@ -33,13 +33,13 @@ function authorScore(token, infos) {
   if (!author)
     return 0;
 
-  return 0.2 + _.min([0.4, author.editCount / 10000]) + _.min([0.4, monthOld(author.registration) / 24]);
+  return 0.2 + _.min([1, author.editCount / 10000]) * 0.6 + _.min([1, monthOld(author.registration) / 24]) * 0.2;
 }
 
 exports.compute = function(tokens, infos) {
   return _.each(tokens, function(token) {
     token.ageScore = getRevisionAgeScore(token, infos);
     token.authorScore = authorScore(token, infos);
-    token.score = (token.ageScore + token.authorScore) / 2;
+    token.score = _.min([1, _.max([token.ageScore, token.authorScore])]);
   });
 };

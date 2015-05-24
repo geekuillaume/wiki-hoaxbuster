@@ -1,7 +1,7 @@
 .wikihoaxbuster-tooltip span {
   color: rgb(200,200,200);
 }
-.wikihoaxbuster-tooltip a {
+.wikihoaxbuster-tooltip a, .wikihoaxbuster-tooltip a:visited {
   color: white;
   text-decoration: underline;
 }
