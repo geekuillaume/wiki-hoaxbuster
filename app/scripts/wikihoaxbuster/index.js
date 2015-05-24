@@ -1,24 +1,17 @@
 'use strict';
 
-var $ = require('wlt-zepto');
+var _ = require('lodash');
 
-var wikiColorURL = 'https://api.wikicolor.net/whocolor/index.php';
+var whoColor = require('./whocolor.js');
+var getUsersInfos = require('./get-users-info.js');
 
-function getWhocolorInfo(callback) {
-  $.ajax({
-    url: wikiColorURL,
-    data: {title: $("h1#firstHeading").text()},
-    dataType: 'json',
-    success: function(data) {callback(null, data);},
-    error: function(err) {callback(err);}
+
+function hoaxBuster() {
+  whoColor.get(function(err, results) {
+    getUsersInfos(_.chain(results.authors).filter('anon', false).map('name').value(), function(err, authors) {
+      console.log('got:', authors);
+    });
   });
 }
 
-console.log('coucou');
-
-getWhocolorInfo(function(err, data) {
-  if (err) {
-    return console.error('There is an error:', err);
-  }
-  console.log('Got:', data);
-});
+hoaxBuster();

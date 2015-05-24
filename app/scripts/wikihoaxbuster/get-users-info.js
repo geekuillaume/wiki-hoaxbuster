@@ -7,6 +7,8 @@ var async = require('async');
 module.exports = function getUsersInfo(usernames, cb) {
   var users = {};
 
+  console.log('holla', usernames);
+
   async.eachLimit(_.chunk(usernames, 50), 5, function(usernames, cb) {
     $.ajax({
       url: 'https://en.wikipedia.org/w/api.php',
