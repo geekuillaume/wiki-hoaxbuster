@@ -11,7 +11,6 @@ var getUsersInfos = require('./get-users-info.js');
 var tokenScore = require('./tokenScore.js');
 
 function applyHtml(results, authors) {
-  console.log('coucou');
 
   $('#mw-content-text').html(results.html);
 
@@ -52,6 +51,7 @@ function applyHtml(results, authors) {
         }),
         contentAsHTML: true,
         interactive: true,
+        onlyOne: true,
         // autoClose: false
       });
       el.tooltipster('show');
@@ -93,7 +93,6 @@ function hoaxBuster() {
     } catch (e) {
       data = {};
     }
-    console.log(data);
     if(data && data.ttl > +new Date()) {
       return applyHtml(data.results, data.authors);
     }
