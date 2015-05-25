@@ -14,11 +14,15 @@ function applyHtml(results, authors) {
   $('#mw-content-text').html(results.html);
 
   _.each(results.tokens, function(token) {
+    if(token.score < 0.5) {
+      $('.author-tokenid-' + token.index).css('background-color', 'rgba(255, 255, 0, ' + ((0.5 - token.score) * 2) + ')');
+    }
+
     $('.author-tokenid-' + token.index).tooltipster({
       content: _.template(
         [
           '<div class="wikihoaxbuster-tooltip"><span>Score:</span> ${token.score}</div>',
-          '<div class="wikihoaxbuster-tooltip"><span>Author:</span> <a href="https://en.wikipedia.org/wiki/User:${author.name}">${author.name}</a></div>',
+          '<div class="wikihoaxbuster-tooltip"><span>Author:</span> <a href="https://en.wikipedia.org/wiki/User:${author.name}">${author.name}</a> (${author.editcount})</div>',
           '<% if(revision.comment) {%><div class="wikihoaxbuster-tooltip"><span>Comment:</span> ${revision.comment}</div><%}%>',
           '<div class="wikihoaxbuster-tooltip"><span>Date:</span> ${momentFromNow}</div>',
           '<div class="wikihoaxbuster-tooltip"><a href="https://en.wikipedia.org/w/index.php?diff=${token.revid}">View edit</a></div>'
@@ -76,6 +80,10 @@ function hoaxBuster() {
 
       return console.warn(err);
     }
+
+    delete results.authors_current;
+    delete results.revid;
+    delete results.tokencount;
 
     getUsersInfos(_.chain(results.authors).filter('anon', false).map('name').value(), function(err, authors) {
       if(err) {
