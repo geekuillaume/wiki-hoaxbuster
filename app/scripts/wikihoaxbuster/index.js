@@ -117,12 +117,10 @@ function hoaxBuster() {
             return console.warn(err);
           }
 
-          console.log('start');
           tokenScore.compute(results.tokens, {
             revisions: results.revisions,
             authors: authors
           });
-          console.log('stop');
 
           chrome.runtime.sendMessage({
             type: 'wikihoaxbuster::setCache',
