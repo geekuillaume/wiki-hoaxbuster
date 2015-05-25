@@ -1,6 +1,8 @@
+![Wiki HoaxBuster Logo](/app/images/icon-128.png?raw=true "Wiki HoaxBuster Logo")
+
 # Wiki HoaxBuster
 
-![Wiki HoaxBuster Logo](/app/images/icon-128.png?raw=true "Wiki HoaxBuster Logo")
+![Screenshot](http://i.imgur.com/kuNT102.png)
 
 Wiki HoaxBuster is a Chrome Extension that allows you to better see pages revisions and bust unrelialable information.
 
