@@ -2,11 +2,9 @@
 
 var _ = require('lodash');
 
-function getRevisionAgeScore(token, infos) {
+function getRevisionAgeScore(token, infos, revisions) {
 
-  var age = _.keys(infos.revisions).sort(function(a, b) {
-    return a < b;
-  }).indexOf(token.revid);
+  var age = revisions.indexOf(token.revid);
 
   if (age === 0)
     return 0;
@@ -17,13 +15,13 @@ function getRevisionAgeScore(token, infos) {
   return 1;
 }
 
+var dataNow = new Date();
 function monthOld(d1) {
     var months;
-    var d2 = new Date();
     d1 = new Date(d1);
-    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months = (dataNow.getFullYear() - d1.getFullYear()) * 12;
     months -= d1.getMonth() + 1;
-    months += d2.getMonth();
+    months += dataNow.getMonth();
     return months <= 0 ? 0 : months;
 }
 
@@ -37,9 +35,13 @@ function authorScore(token, infos) {
 }
 
 exports.compute = function(tokens, infos) {
-  return _.each(tokens, function(token) {
-    token.ageScore = getRevisionAgeScore(token, infos);
-    token.authorScore = authorScore(token, infos);
-    token.score = _.min([1, _.max([token.ageScore, token.authorScore])]);
+  var revisions = _.keys(infos.revisions).sort(function(a, b) {
+    return a < b;
   });
+  for (var i = 0; i < tokens.length; i++) {
+    tokens[i].ageScore = getRevisionAgeScore(tokens[i], infos, revisions);
+    tokens[i].authorScore = authorScore(tokens[i], infos);
+    tokens[i].score = _.min([1, _.max([tokens[i].ageScore, tokens[i].authorScore])]);
+  }
+  return tokens;
 };
